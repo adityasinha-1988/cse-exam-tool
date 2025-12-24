@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUJ Exam Cell Admin</title>
+    <link rel="icon" href="https://manipal.edu/content/dam/manipal/muj/images/favicon.ico">
+    
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary: #e67e22;    /* MUJ Orange */
+            --secondary: #2c3e50;  /* Dark Blue */
+            --accent: #d35400;
+            --light: #f4f6f9;
+            --white: #ffffff;
+            --text: #333;
+            --border: #ddd;
+        }
+        
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: var(--light); display: flex; height: 100vh; overflow: hidden; color: var(--text); }
+        
+        /* --- SIDEBAR --- */
+        .sidebar { width: 260px; background-color: var(--secondary); color: var(--white); display: flex; flex-direction: column; padding-top: 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.1); flex-shrink: 0; }
+        .logo-area { text-align: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+        .logo-img { width: 140px; background: white; padding: 5px; border-radius: 4px; }
+        
+        .nav-item { padding: 15px 25px; cursor: pointer; border-left: 4px solid transparent; transition: 0.3s; font-size: 15px; display: flex; align-items: center; text-decoration: none; color: white; }
+        .nav-item:hover { background-color: #34495e; }
+        .nav-item.active { background-color: #34495e; border-left-color: var(--primary); font-weight: 600; color: var(--primary); }
+        .icon { margin-right: 12px; font-size: 18px; }
+
+        /* --- MAIN CONTENT --- */
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; position: relative; }
+        .section { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { color: var(--secondary); margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+
+        /* --- UI ELEMENTS --- */
+        .search-box { background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); max-width: 900px; margin: 0 auto 30px auto; }
+        .input-group { display: flex; gap: 10px; justify-content: center; margin-top: 15px; flex-wrap: wrap; }
+        
+        input, select { padding: 12px; border: 1px solid var(--border); border-radius: 6px; width: 250px; font-size: 15px; }
+        button.btn-primary { padding: 12px 25px; background: var(--primary); color: var(--white); border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        button.btn-primary:hover { background: var(--accent); }
+
+        /* --- TABLES --- */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; font-weight: 600; color: #444; }
+        tr:hover { background-color: #f1f1f1; }
+        
+        .badge { padding: 5px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; color: white; display: inline-block; }
+        .bg-green { background: #2ecc71; } .bg-red { background: #e74c3c; } .bg-yellow { background: #f1c40f; color: #333; }
+
+        /* --- VISUAL MAP --- */
+        .room-container { margin: 20px auto; position: relative; border: 4px solid #444; border-left: 8px solid #444; padding: 60px 20px 20px 40px; border-radius: 8px; background: white; width: fit-content; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .board { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 4px 30px; border-radius: 4px; font-size: 11px; }
+        .grid { display: grid; grid-template-columns: repeat(6, 45px); grid-template-rows: repeat(5, 45px); gap: 12px; justify-content: center; }
+        .seat { width: 45px; height: 45px; background: #f1f3f5; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #777; border: 1px solid #ddd; }
+        
+        /* Doors */
+        .door { position: absolute; width: 6px; height: 40px; background: #c0392b; left: -10px; }
+        .door-entry { top: 70px; } .door-exit { bottom: 70px; }
+        .lbl { position: absolute; left: -50px; font-size: 10px; font-weight: bold; color: #c0392b; width: 45px; text-align: right; }
+        .lbl-entry { top: 82px; } .lbl-exit { bottom: 82px; }
+        
+        .highlight { background: #27ae60 !important; color: white !important; font-weight: bold; transform: scale(1.1); box-shadow: 0 0 15px rgba(39, 174, 96, 0.6); border-color: #219150 !important; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(39,174,96, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(39,174,96, 0); } 100% { box-shadow: 0 0 0 0 rgba(39,174,96, 0); } }
+
+        /* --- GUIDELINES BOX --- */
+        .guidelines-box { background: white; padding: 30px; margin-top: 30px; border-radius: 8px; border-left: 5px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .guidelines-box h3 { color: var(--primary); margin-top: 0; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+        .guidelines-box ul { padding-left: 20px; line-height: 1.6; color: #555; }
+        .guidelines-box li { margin-bottom: 8px; }
+
+        .do-dont-table { width: 100%; border: 1px solid #ddd; margin-top: 20px; }
+        .do-dont-table th { text-align: center; color: white; padding: 10px; }
+        .th-do { background-color: #27ae60; }
+        .th-dont { background-color: #c0392b; }
+        .do-dont-table td { vertical-align: top; width: 50%; padding: 15px; background: #fff; border: 1px solid #eee; }
+        .do-list li::before { content: "✔"; color: green; margin-right: 8px; font-weight: bold; }
+        .dont-list li::before { content: "✖"; color: red; margin-right: 8px; font-weight: bold; }
+        .do-list, .dont-list { list-style: none; padding: 0; margin: 0; }
+
+        /* --- DASHBOARD STATS --- */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--primary); text-align: center; }
+        .card h1 { margin: 5px 0; color: var(--secondary); font-size: 32px; }
+        .card p { margin: 0; color: #777; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Footer */
+        .sidebar-footer { margin-top: auto; padding: 20px; font-size: 12px; color: #aaa; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo-area">
+            <img src="logo.png" alt="MUJ Logo" class="logo-img" onerror="this.style.display='none'">
+            <h3 style="margin:0; font-size:18px;">Admin Portal</h3>
+            <p style="margin:5px 0 0 0; font-size:12px; opacity:0.7;">Dept. of CSE</p>
+        </div>
+        
+        <div class="nav-item active" onclick="switchTab('dashboard', this)">
+            <span class="icon">📊</span> Dashboard
+        </div>
+        <div class="nav-item" onclick="switchTab('findStudent', this)">
+            <span class="icon">🔍</span> Student Search
+        </div>
+        <div class="nav-item" onclick="switchTab('facultyDuty', this)">
+            <span class="icon">👨‍🏫</span> Faculty Duties
+        </div>
+        <div class="nav-item" onclick="switchTab('roomStatus', this)">
+            <span class="icon">🏢</span> Room Status
+        </div>
+        
+        <div class="sidebar-footer">
+            <p>MUJ Exam Cell<br>Dev by <strong>Aditya Sinha</strong></p>
+            <p id="currYear">2025</p>
+        </div>
+    </div>
+
+    <div class="main-content">
+        
+        <div id="dashboard" class="section active">
+            <h2>Overview Statistics</h2>
+            <div class="stats-grid">
+                <div class="card">
+                    <h1 id="totalStudents">0</h1>
+                    <p>Total Students</p>
+                </div>
+                <div class="card">
+                    <h1 id="totalExams">0</h1>
+                    <p>Total Exams</p>
+                </div>
+                <div class="card">
+                    <h1 id="totalRooms">0</h1>
+                    <p>Active Rooms</p>
+                </div>
+            </div>
+            
+            <div class="card" style="text-align:left; border-left-color:#333; max-width: 400px;">
+                <h3 style="margin-top:0;">System Health</h3>
+                <p id="stdStatus" style="color:red;">✖ Student Data Missing</p>
+                <p id="facStatus" style="color:red;">✖ Faculty Data Missing</p>
+            </div>
+        </div>
+
+        <div id="findStudent" class="section">
+            <div class="search-box">
+                <h2>Find Student Seating</h2>
+                <div class="input-group">
+                    <input type="text" id="searchInput" placeholder="Name or Reg No (e.g. 229...)">
+                    <input type="text" id="courseInput" placeholder="Course Code (Optional)">
+                    <button class="btn-primary" onclick="searchStudent()">Find Seat</button>
+                </div>
+
+                <div id="studentDetails" style="display:none; text-align:left; margin-top:25px; border-top:1px dashed #ddd; padding-top:20px;">
+                    <h3 style="color:var(--primary); margin-top:0;">Student Details</h3>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                        <div><strong>Name:</strong> <span id="resName">-</span></div>
+                        <div><strong>Reg No:</strong> <span id="resReg">-</span></div>
+                        <div><strong>Exam Date:</strong> <span id="resDate">-</span></div>
+                        <div><strong>Time:</strong> <span id="resTime">-</span></div>
+                    </div>
+                    <div style="background:#fff3cd; padding:15px; border-radius:8px; margin-top:15px; border-left:4px solid #ffc107;">
+                        <div style="font-size:18px; font-weight:bold; color:#333;">
+                            Room: <span id="resRoom" style="color:#c0392b;">-</span> | 
+                            Seat: <span id="resSeat" style="color:#2980b9;">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="room-container" id="visualMap">
+                <div class="board">WHITEBOARD</div>
+                <div class="door door-entry"></div><div class="

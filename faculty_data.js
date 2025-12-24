@@ -1,0 +1,241 @@
+const facultyData = [
+  { "name": "Dr. Ashish Sharma", "id": "", "date": "26-12-2025 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Ashish Sharma", "id": "", "date": "27-12-2025
+(Saturday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Ashish Sharma", "id": "", "date": "31-12-2025 (Wednesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Ashish Sharma", "id": "", "date": "01-01-2026 (Thursday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Sayar Singh Shekhaw", "id": "MUJ1523", "date": "26-12-2025 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Sayar Singh Shekhaw", "id": "MUJ1523", "date": "31-12-2025 (Wednesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Vivek Singh Sikarwa", "id": "MUJ0301", "date": "26-12-2025 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Vivek Singh Sikarwa", "id": "MUJ0301", "date": "30-12-2025 (Tuesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Vivek Singh Sikarwa", "id": "MUJ0301", "date": "31-12-2025 (Wednesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Vivek Singh Sikarwa", "id": "MUJ0301", "date": "01-01-2026 (Thursday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Susheela Vishnoi", "id": "MUJ1497", "date": "26-12-2025 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Susheela Vishnoi", "id": "MUJ1497", "date": "29-12-2025 (Monday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Susheela Vishnoi", "id": "MUJ1497", "date": "02-01-2026 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Susheela Vishnoi", "id": "MUJ1497", "date": "02-01-2026 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Neetu Gupta", "id": "MUJ1539", "date": "26-12-2025 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Neetu Gupta", "id": "MUJ1539", "date": "31-12-2025 (Wednesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Neetu Gupta", "id": "MUJ1539", "date": "01-01-2026 (Thursday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Neetu Gupta", "id": "MUJ1539", "date": "02-01-2026 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Ankit Shrivastava", "id": "MUJ0264", "date": "26-12-2025 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Ankit Shrivastava", "id": "MUJ0264", "date": "29-12-2025 (Monday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Ankit Shrivastava", "id": "MUJ0264", "date": "30-12-2025 (Tuesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Ankit Shrivastava", "id": "MUJ0264", "date": "31-12-2025 (Wednesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Akshay Jadhav", "id": "MUJ1721", "date": "26-12-2025 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Akshay Jadhav", "id": "MUJ1721", "date": "30-12-2025 (Tuesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Akshay Jadhav", "id": "MUJ1721", "date": "31-12-2025 (Wednesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Akshay Jadhav", "id": "MUJ1721", "date": "03-01-2026
+(Saturday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Kirti Paliwal", "id": "MUJAD012", "date": "26-12-2025 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Kirti Paliwal", "id": "MUJAD012", "date": "30-12-2025 (Tuesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Kirti Paliwal", "id": "MUJAD012", "date": "01-01-2026 (Thursday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Kirti Paliwal", "id": "MUJAD012", "date": "02-01-2026 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Varda Pareek", "id": "MUJ2001", "date": "26-12-2025 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Varda Pareek", "id": "MUJ2001", "date": "27-12-2025
+(Saturday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Varda Pareek", "id": "MUJ2001", "date": "29-12-2025 (Monday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Varda Pareek", "id": "MUJ2001", "date": "31-12-2025 (Wednesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Manu Shrivastava", "id": "MUJ1955", "date": "26-12-2025 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Manu Shrivastava", "id": "MUJ1955", "date": "27-12-2025
+(Saturday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Manu Shrivastava", "id": "MUJ1955", "date": "30-12-2025 (Tuesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Manu Shrivastava", "id": "MUJ1955", "date": "02-01-2026 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Ridhi Arora", "id": "MUJ1987", "date": "26-12-2025 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Ridhi Arora", "id": "MUJ1987", "date": "30-12-2025 (Tuesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Ridhi Arora", "id": "MUJ1987", "date": "01-01-2026 (Thursday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Ridhi Arora", "id": "MUJ1987", "date": "02-01-2026 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Rishi Kumar Srivastv", "id": "MUJ2006", "date": "26-12-2025 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Rishi Kumar Srivastv", "id": "MUJ2006", "date": "30-12-2025 (Tuesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Rishi Kumar Srivastv", "id": "MUJ2006", "date": "01-01-2026 (Thursday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Rishi Kumar Srivastv", "id": "MUJ2006", "date": "02-01-2026 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Bhawani Singh Rath", "id": "MUJAD031", "date": "30-12-2025 (Tuesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Bhawani Singh Rath", "id": "MUJAD031", "date": "01-01-2026 (Thursday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Bhawani Singh Rath", "id": "MUJAD031", "date": "02-01-2026 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Bhawani Singh Rath", "id": "MUJAD031", "date": "03-01-2026
+(Saturday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Soni Gupta", "id": "MUJ2093", "date": "29-12-2025 (Monday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Soni Gupta", "id": "MUJ2093", "date": "30-12-2025 (Tuesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Soni Gupta", "id": "MUJ2093", "date": "01-01-2026 (Thursday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Soni Gupta", "id": "MUJ2093", "date": "02-01-2026 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Sachin Gupta", "id": "MUJ2094", "date": "27-12-2025
+(Saturday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Sachin Gupta", "id": "MUJ2094", "date": "31-12-2025 (Wednesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Sachin Gupta", "id": "MUJ2094", "date": "02-01-2026 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Vijay Hasanpuri", "id": "MUJ2123", "date": "26-12-2025 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Vijay Hasanpuri", "id": "MUJ2123", "date": "27-12-2025
+(Saturday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Vijay Hasanpuri", "id": "MUJ2123", "date": "31-12-2025 (Wednesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Vijay Hasanpuri", "id": "MUJ2123", "date": "01-01-2026 (Thursday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Gunjan Pathak", "id": "MUJ2139", "date": "27-12-2025
+(Saturday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Gunjan Pathak", "id": "MUJ2139", "date": "31-12-2025 (Wednesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Gunjan Pathak", "id": "MUJ2139", "date": "01-01-2026 (Thursday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Madhu Sharma", "id": "MUJ2169", "date": "31-12-2025 (Wednesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Madhu Sharma", "id": "MUJ2169", "date": "01-01-2026 (Thursday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Madhu Sharma", "id": "MUJ2169", "date": "02-01-2026 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Amandeep Cheema", "id": "MUJ2173", "date": "27-12-2025
+(Saturday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Amandeep Cheema", "id": "MUJ2173", "date": "31-12-2025 (Wednesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Amandeep Cheema", "id": "MUJ2173", "date": "01-01-2026 (Thursday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mrs. Tripti Kulshrestha", "id": "MUJ2158", "date": "27-12-2025
+(Saturday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mrs. Tripti Kulshrestha", "id": "MUJ2158", "date": "31-12-2025 (Wednesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mrs. Tripti Kulshrestha", "id": "MUJ2158", "date": "01-01-2026 (Thursday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mrs. Tripti Kulshrestha", "id": "MUJ2158", "date": "02-01-2026 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Virendra Kumar Meg", "id": "MUJ1937", "date": "01-01-2026 (Thursday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Virendra Kumar Meg", "id": "MUJ1937", "date": "01-01-2026 (Thursday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Virendra Kumar Meg", "id": "MUJ1937", "date": "02-01-2026 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Virendra Kumar Meg", "id": "MUJ1937", "date": "02-01-2026 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Nilesh Kumar Dubey", "id": "MUJ2202", "date": "26-12-2025 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Nilesh Kumar Dubey", "id": "MUJ2202", "date": "27-12-2025
+(Saturday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Nilesh Kumar Dubey", "id": "MUJ2202", "date": "31-12-2025 (Wednesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr. Nilesh Kumar Dubey", "id": "MUJ2202", "date": "03-01-2026
+(Saturday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Jay Shankar Sharma", "id": "MUJ2153", "date": "31-12-2025 (Wednesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Jay Shankar Sharma", "id": "MUJ2153", "date": "01-01-2026 (Thursday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Jay Shankar Sharma", "id": "MUJ2153", "date": "02-01-2026 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Vipasha Sharma", "id": "MUJ2152", "date": "29-12-2025 (Monday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Vipasha Sharma", "id": "MUJ2152", "date": "30-12-2025 (Tuesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Vipasha Sharma", "id": "MUJ2152", "date": "30-12-2025 (Tuesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr.Arvind Mehta", "id": "MUJ2151", "date": "31-12-2025 (Wednesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr.Arvind Mehta", "id": "MUJ2151", "date": "01-01-2026 (Thursday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr.Arvind Mehta", "id": "MUJ2151", "date": "02-01-2026 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Abhay Singh Bisht", "id": "MUJ2149", "date": "31-12-2025 (Wednesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Abhay Singh Bisht", "id": "MUJ2149", "date": "01-01-2026 (Thursday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Abhay Singh Bisht", "id": "MUJ2149", "date": "02-01-2026 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Abhay Singh Bisht", "id": "MUJ2149", "date": "03-01-2026
+(Saturday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Harshika Mathur", "id": "MUJ2159", "date": "30-12-2025 (Tuesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Harshika Mathur", "id": "MUJ2159", "date": "01-01-2026 (Thursday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Harshika Mathur", "id": "MUJ2159", "date": "02-01-2026 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Mohit Kumar", "id": "MUJ2136", "date": "30-12-2025 (Tuesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Mohit Kumar", "id": "MUJ2136", "date": "31-12-2025 (Wednesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Mr. Mohit Kumar", "id": "MUJ2136", "date": "01-01-2026 (Thursday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr.Mohit Kushwaha", "id": "MUJ2000", "date": "26-12-2025 (Friday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr.Mohit Kushwaha", "id": "MUJ2000", "date": "30-12-2025 (Tuesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr.Mohit Kushwaha", "id": "MUJ2000", "date": "31-12-2025 (Wednesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Dr.Mohit Kushwaha", "id": "MUJ2000", "date": "01-01-2026 (Thursday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Neha", "id": "MUJ2148", "date": "26-12-2025 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Neha", "id": "MUJ2148", "date": "30-12-2025 (Tuesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Neha", "id": "MUJ2148", "date": "31-12-2025 (Wednesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Neha", "id": "MUJ2148", "date": "01-01-2026 (Thursday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Shweta Sharma", "id": "MUJ2147", "date": "26-12-2025 (Friday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Shweta Sharma", "id": "MUJ2147", "date": "29-12-2025 (Monday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Shweta Sharma", "id": "MUJ2147", "date": "30-12-2025 (Tuesday)", "time": "Slot-1 (10:00
+AM - 01:00 PM)", "room": "Check Duty Chart" },
+  { "name": "Ms. Shweta Sharma", "id": "MUJ2147", "date": "30-12-2025 (Tuesday)", "time": "Slot-2 (02:00
+PM - 05:00 PM)", "room": "Check Duty Chart" }
+];
