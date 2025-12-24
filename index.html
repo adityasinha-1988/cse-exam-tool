@@ -3,178 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUJ Exam Cell Admin</title>
-    <link rel="icon" href="https://manipal.edu/content/dam/manipal/muj/images/favicon.ico">
+    <title>MUJ Exam Admin Portal</title>
     
     <style>
-        /* --- CSS VARIABLES & RESET --- */
-        :root {
-            --primary: #e67e22;    /* MUJ Orange */
-            --secondary: #2c3e50;  /* Dark Blue */
-            --accent: #d35400;
-            --light: #f4f6f9;
-            --white: #ffffff;
-            --text: #333;
-            --border: #ddd;
-        }
+        /* --- CSS STYLES --- */
+        :root { --primary: #e67e22; --secondary: #2c3e50; --light: #f4f6f9; --white: #ffffff; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--light); display: flex; height: 100vh; overflow: hidden; }
         
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: var(--light); display: flex; height: 100vh; overflow: hidden; color: var(--text); }
+        /* Sidebar */
+        .sidebar { width: 250px; background: var(--secondary); color: white; display: flex; flex-direction: column; padding: 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
+        .logo-area { text-align: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+        .nav-item { padding: 15px; cursor: pointer; color: white; margin-bottom: 5px; border-radius: 5px; transition: 0.3s; }
+        .nav-item:hover { background: #34495e; }
+        .nav-item.active { background: #34495e; border-left: 5px solid var(--primary); font-weight: bold; color: var(--primary); }
         
-        /* --- SIDEBAR --- */
-        .sidebar { width: 260px; background-color: var(--secondary); color: var(--white); display: flex; flex-direction: column; padding-top: 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.1); flex-shrink: 0; }
-        .logo-area { text-align: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
-        .logo-img { width: 140px; background: white; padding: 5px; border-radius: 4px; }
-        
-        .nav-item { padding: 15px 25px; cursor: pointer; border-left: 4px solid transparent; transition: 0.3s; font-size: 15px; display: flex; align-items: center; text-decoration: none; color: white; }
-        .nav-item:hover { background-color: #34495e; }
-        .nav-item.active { background-color: #34495e; border-left-color: var(--primary); font-weight: 600; color: var(--primary); }
-        .icon { margin-right: 12px; font-size: 18px; }
-
-        /* --- MAIN CONTENT --- */
-        .main-content { flex: 1; padding: 30px; overflow-y: auto; position: relative; }
-        .section { display: none; animation: fadeIn 0.4s ease-in-out; }
+        /* Main Content */
+        .main { flex: 1; padding: 30px; overflow-y: auto; }
+        .section { display: none; animation: fadeIn 0.3s; }
         .section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        h2 { color: var(--secondary); margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
-
-        /* --- UI ELEMENTS --- */
-        .search-box { background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); max-width: 900px; margin: 0 auto 30px auto; }
-        .input-group { display: flex; gap: 10px; justify-content: center; margin-top: 15px; flex-wrap: wrap; }
+        /* Cards & Inputs */
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .stat-card { background: white; padding: 20px; border-radius: 10px; border-left: 5px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; }
+        .stat-card h1 { margin: 5px 0; color: var(--secondary); }
         
-        input, select { padding: 12px; border: 1px solid var(--border); border-radius: 6px; width: 250px; font-size: 15px; }
-        button.btn-primary { padding: 12px 25px; background: var(--primary); color: var(--white); border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        button.btn-primary:hover { background: var(--accent); }
+        input, select { padding: 12px; border: 1px solid #ddd; border-radius: 6px; width: 300px; margin-right: 10px; }
+        button { padding: 12px 25px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #d35400; }
 
-        /* --- TABLES --- */
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; }
-        th { background: #f8f9fa; font-weight: 600; color: #444; }
-        tr:hover { background-color: #f1f1f1; }
-        
-        .badge { padding: 5px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; color: white; display: inline-block; }
-        .bg-green { background: #2ecc71; } .bg-red { background: #e74c3c; } .bg-yellow { background: #f1c40f; color: #333; }
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; }
+        th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+        th { background: #f8f9fa; }
+        .badge { padding: 5px 10px; border-radius: 10px; font-size: 11px; color: white; font-weight: bold; }
+        .bg-green { background: #27ae60; } .bg-red { background: #c0392b; }
 
-        /* --- VISUAL MAP --- */
-        .room-container { margin: 20px auto; position: relative; border: 4px solid #444; border-left: 8px solid #444; padding: 60px 20px 20px 40px; border-radius: 8px; background: white; width: fit-content; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .board { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 4px 30px; border-radius: 4px; font-size: 11px; }
-        .grid { display: grid; grid-template-columns: repeat(6, 45px); grid-template-rows: repeat(5, 45px); gap: 12px; justify-content: center; }
-        .seat { width: 45px; height: 45px; background: #f1f3f5; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #777; border: 1px solid #ddd; }
-        
-        /* Doors */
-        .door { position: absolute; width: 6px; height: 40px; background: #c0392b; left: -10px; }
-        .door-entry { top: 70px; } .door-exit { bottom: 70px; }
-        .lbl { position: absolute; left: -50px; font-size: 10px; font-weight: bold; color: #c0392b; width: 45px; text-align: right; }
-        .lbl-entry { top: 82px; } .lbl-exit { bottom: 82px; }
-        
-        .highlight { background: #27ae60 !important; color: white !important; font-weight: bold; transform: scale(1.1); box-shadow: 0 0 15px rgba(39, 174, 96, 0.6); border-color: #219150 !important; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(39,174,96, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(39,174,96, 0); } 100% { box-shadow: 0 0 0 0 rgba(39,174,96, 0); } }
-
-        /* --- GUIDELINES BOX --- */
-        .guidelines-box { background: white; padding: 30px; margin-top: 30px; border-radius: 8px; border-left: 5px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .guidelines-box h3 { color: var(--primary); margin-top: 0; padding-bottom: 10px; border-bottom: 1px solid #eee; }
-        .guidelines-box ul { padding-left: 20px; line-height: 1.6; color: #555; }
-        .guidelines-box li { margin-bottom: 8px; }
-
-        .do-dont-table { width: 100%; border: 1px solid #ddd; margin-top: 20px; }
-        .do-dont-table th { text-align: center; color: white; padding: 10px; }
-        .th-do { background-color: #27ae60; }
-        .th-dont { background-color: #c0392b; }
-        .do-dont-table td { vertical-align: top; width: 50%; padding: 15px; background: #fff; border: 1px solid #eee; }
-        .do-list li::before { content: "✔"; color: green; margin-right: 8px; font-weight: bold; }
-        .dont-list li::before { content: "✖"; color: red; margin-right: 8px; font-weight: bold; }
-        .do-list, .dont-list { list-style: none; padding: 0; margin: 0; }
-
-        /* --- DASHBOARD STATS --- */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
-        .card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--primary); text-align: center; }
-        .card h1 { margin: 5px 0; color: var(--secondary); font-size: 32px; }
-        .card p { margin: 0; color: #777; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Footer */
-        .sidebar-footer { margin-top: auto; padding: 20px; font-size: 12px; color: #aaa; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
+        /* Error Box */
+        .error-box { background: #ffe6e6; color: #cc0000; padding: 15px; border-radius: 5px; border: 1px solid #ffcccc; display:none; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
         <div class="logo-area">
-            <img src="logo.png" alt="MUJ Logo" class="logo-img" onerror="this.style.display='none'">
-            <h3 style="margin:0; font-size:18px;">Admin Portal</h3>
-            <p style="margin:5px 0 0 0; font-size:12px; opacity:0.7;">Dept. of CSE</p>
+            <h3>MUJ EXAM CELL</h3>
+            <p style="font-size:12px; opacity:0.7;">Admin Console</p>
         </div>
-        
-        <div class="nav-item active" onclick="switchTab('dashboard', this)">
-            <span class="icon">📊</span> Dashboard
-        </div>
-        <div class="nav-item" onclick="switchTab('findStudent', this)">
-            <span class="icon">🔍</span> Student Search
-        </div>
-        <div class="nav-item" onclick="switchTab('facultyDuty', this)">
-            <span class="icon">👨‍🏫</span> Faculty Duties
-        </div>
-        <div class="nav-item" onclick="switchTab('roomStatus', this)">
-            <span class="icon">🏢</span> Room Status
-        </div>
-        
-        <div class="sidebar-footer">
-            <p>MUJ Exam Cell<br>Dev by <strong>Aditya Sinha</strong></p>
-            <p id="currYear">2025</p>
-        </div>
+        <div class="nav-item active" onclick="switchTab('dashboard', this)">📊 Dashboard</div>
+        <div class="nav-item" onclick="switchTab('studentSearch', this)">🔍 Student Search</div>
+        <div class="nav-item" onclick="switchTab('facultyDuty', this)">👨‍🏫 Faculty Duties</div>
+        <div class="nav-item" onclick="switchTab('roomStatus', this)">🏢 Room Status</div>
     </div>
 
-    <div class="main-content">
+    <div class="main">
         
+        <div id="globalError" class="error-box"></div>
+
         <div id="dashboard" class="section active">
-            <h2>Overview Statistics</h2>
+            <h2>Overview Dashboard</h2>
             <div class="stats-grid">
-                <div class="card">
-                    <h1 id="totalStudents">0</h1>
+                <div class="stat-card">
+                    <h1 id="countStd">0</h1>
                     <p>Total Students</p>
                 </div>
-                <div class="card">
-                    <h1 id="totalExams">0</h1>
-                    <p>Total Exams</p>
+                <div class="stat-card">
+                    <h1 id="countFac">0</h1>
+                    <p>Faculty Assigned</p>
                 </div>
-                <div class="card">
-                    <h1 id="totalRooms">0</h1>
+                <div class="stat-card">
+                    <h1 id="countRooms">0</h1>
                     <p>Active Rooms</p>
                 </div>
             </div>
-            
-            <div class="card" style="text-align:left; border-left-color:#333; max-width: 400px;">
-                <h3 style="margin-top:0;">System Health</h3>
-                <p id="stdStatus" style="color:red;">✖ Student Data Missing</p>
-                <p id="facStatus" style="color:red;">✖ Faculty Data Missing</p>
+            <div class="card" style="margin-top:20px;">
+                <h3>System Status</h3>
+                <p id="stdStatus">⏳ Loading Student Data...</p>
+                <p id="facStatus">⏳ Loading Faculty Data...</p>
             </div>
         </div>
 
-        <div id="findStudent" class="section">
-            <div class="search-box">
-                <h2>Find Student Seating</h2>
-                <div class="input-group">
-                    <input type="text" id="searchInput" placeholder="Name or Reg No (e.g. 229...)">
-                    <input type="text" id="courseInput" placeholder="Course Code (Optional)">
-                    <button class="btn-primary" onclick="searchStudent()">Find Seat</button>
-                </div>
+        <div id="studentSearch" class="section">
+            <h2>Find Student</h2>
+            <div class="card">
+                <input type="text" id="stdInput" placeholder="Enter Reg No or Name">
+                <button onclick="findStudent()">Search</button>
+                <div id="stdResult" style="margin-top:20px; display:none; padding:15px; background:#f9f9f9; border-radius:8px;"></div>
+            </div>
+        </div>
 
-                <div id="studentDetails" style="display:none; text-align:left; margin-top:25px; border-top:1px dashed #ddd; padding-top:20px;">
-                    <h3 style="color:var(--primary); margin-top:0;">Student Details</h3>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                        <div><strong>Name:</strong> <span id="resName">-</span></div>
-                        <div><strong>Reg No:</strong> <span id="resReg">-</span></div>
-                        <div><strong>Exam Date:</strong> <span id="resDate">-</span></div>
-                        <div><strong>Time:</strong> <span id="resTime">-</span></div>
-                    </div>
-                    <div style="background:#fff3cd; padding:15px; border-radius:8px; margin-top:15px; border-left:4px solid #ffc107;">
-                        <div style="font-size:18px; font-weight:bold; color:#333;">
-                            Room: <span id="resRoom" style="color:#c0392b;">-</span> | 
-                            Seat: <span id="resSeat" style="color:#2980b9;">-</span>
-                        </div>
-                    </div>
-                </div>
+        <div id="facultyDuty" class="section">
+            <h2>Faculty Duties</h2>
+            <div class="card">
+                <input type="text" id="facInput" placeholder="Enter Faculty Name">
+                <button onclick="findFaculty()">Search Duties</button>
+                <div id="facResult" style="margin-top:20px;"></div>
             </div>
             
-            <div class="room-container" id="visualMap">
-                <div class="board">WHITEBOARD</div>
-                <div class="door door-entry"></div><div class="
+            <div class="card" style="border-left: 5px solid #2980b9;">
+                <h3>📜 Invigilator Guidelines</h3>
+                <ul>
+                    <li>Collect booklets 30 mins prior.</li>
+                    <li>Verify Student IDs.</li>
+                    <li>Report malpractice immediately.</li>
+                    <li>DO NOT use mobile phones.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="roomStatus" class="section">
+            <h2>Room Vacancy</h2>
+            <div class="card">
+                <select id="filterDate"><option>Select Date</option></select>
+                <select id="filterTime"><option>Select Time</option></select>
+                <button onclick="checkRooms()">Check Status</button>
+                <div id="roomResult" style="margin-top:20px;"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="student_data.js" onerror="handleError('student_data.js missing! Check filename case.')"></script>
+    <script src="faculty_data.js" onerror="handleError('faculty_data.js missing! Check filename case.')"></script>
+
+    <script>
+        // GLOBAL ERROR HANDLER
+        function handleError(msg) {
+            const box = document.getElementById('globalError');
+            box.style.display = 'block';
+            box.innerHTML += `<p>❌ ${msg}</p>`;
+        }
+
+        // 1. Initialize Page
+        window.onload = function() {
+            // Check Student Data
+            if (typeof studentData !== 'undefined') {
+                document.getElementById('countStd').innerText = studentData.length;
+                document.getElementById('stdStatus').innerHTML = '<span style="color:green">✔ Student Data Loaded Successfully</span>';
+                
+                // Populate Dropdowns
+                const dates = [...new Set(studentData.map(s => s.date))].filter(Boolean).sort();
+                const times = [...new Set(studentData.map(s => s.time))].filter(Boolean).sort();
+                const dSel = document.getElementById('filterDate');
+                const tSel = document.getElementById('filterTime');
+                
+                dates.forEach(d => { let o = document.createElement('option'); o.value=d; o.innerText=d; dSel.appendChild(o); });
+                times.forEach(t => { let o = document.createElement('option'); o.value=t; o.innerText=t; tSel.appendChild(o); });
+
+                const rooms = new Set(studentData.map(s => s.room));
+                document.getElementById('countRooms').innerText = rooms.size;
+
+            } else {
+                document.getElementById('stdStatus').innerHTML = '<span style="color:red">✖ Student Data Failed to Load</span>';
+            }
+
+            // Check Faculty Data
+            if (typeof facultyData !== 'undefined') {
+                document.getElementById('countFac').innerText = facultyData.length;
+                document.getElementById('facStatus').innerHTML = '<span style="color:green">✔ Faculty Data Loaded Successfully</span>';
+            } else {
+                document.getElementById('facStatus').innerHTML = '<span style="color:red">✖ Faculty Data Failed to Load</span>';
+            }
+        };
+
+        // 2. Tab Switching Logic
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            element.classList.add('active');
+        }
+
+        // 3. Student Search Logic
+        function findStudent() {
+            if (typeof studentData === 'undefined') { alert("Data not loaded!"); return; }
+            const q = document.getElementById('stdInput').value.toLowerCase().trim();
+            const res = document.getElementById('stdResult');
+            
+            if(!q) { alert("Enter Name or Reg No"); return; }
+            
+            const found = studentData.find(s => s.reg.includes(q) || (s.name && s.name.toLowerCase().includes(q)));
+            
+            if(found) {
+                res.style.display = 'block';
+                res.innerHTML = `
+                    <h3 style="margin-top:0; color:#e67e22;">${found.name}</h3>
+                    <p><strong>Reg No:</strong> ${found.reg}</p>
+                    <p><strong>Exam:</strong> ${found.course} | ${found.date} | ${found.time}</p>
+                    <div style="background:#2c3e50; color:white; padding:10px; border-radius:5px; margin-top:10px;">
+                        Room: <strong>${found.room}</strong> &nbsp;|&nbsp; Seat: <strong>${found.seat}</strong>
+                    </div>
+                `;
+            } else {
+                res.style.display = 'block';
+                res.innerHTML = `<p style="color:red; font-weight:bold;">Student Not Found!</p>`;
+            }
+        }
+
+        // 4. Faculty Search Logic
+        function findFaculty() {
+            if (typeof facultyData === 'undefined') { alert("Data not loaded!"); return; }
+            const q = document.getElementById('facInput').value.toLowerCase().trim();
+            const res = document.getElementById('facResult');
+            res.innerHTML = "";
+
+            if(!q) { alert("Enter Name"); return; }
+
+            // Partial name match logic
+            const duties = facultyData.filter(f => f.name.toLowerCase().includes(q) || (f.id && f.id.toLowerCase().includes(q)));
+
+            if(duties.length > 0) {
+                let html = `<h4>Duties for: ${duties[0].name}</h4>
+                <table><tr><th>Date</th><th>Time</th><th>Room</th></tr>`;
+                duties.forEach(d => {
+                    html += `<tr><td>${d.date}</td><td>${d.time}</td><td><strong>${d.room}</strong></td></tr>`;
+                });
+                res.innerHTML = html + "</table>";
+            } else {
+                res.innerHTML = `<p style="color:red;">No duties found.</p>`;
+            }
+        }
+
+        // 5. Room Status Logic
+        function checkRooms() {
+            if (typeof studentData === 'undefined') return;
+            const date = document.getElementById('filterDate').value;
+            const time = document.getElementById('filterTime').value;
+            const res = document.getElementById('roomResult');
+            
+            if(date === "Select Date" || time === "Select Time") { alert("Select Date & Time"); return; }
+
+            const slotData = studentData.filter(s => s.date === date && s.time === time);
+            
+            let counts = {};
+            slotData.forEach(s => { counts[s.room] = (counts[s.room] || 0) + 1; });
+
+            const rooms = ["LHC 212", "LHC 213", "LHC 214", "LHC 215", "LHC 216", "LHC 217", "LHC 218"];
+            const capacity = 30;
+
+            let html = `<table><tr><th>Room</th><th>Filled</th><th>Vacancy</th><th>Status</th></tr>`;
+            
+            rooms.forEach(r => {
+                let filled = counts[r] || 0;
+                let vacant = capacity - filled;
+                let badge = filled >= capacity ? '<span class="badge bg-red">FULL</span>' : (filled === 0 ? '<span class="badge" style="background:#ddd; color:#333">EMPTY</span>' : '<span class="badge bg-green">OPEN</span>');
+                
+                html += `<tr>
+                    <td><strong>${r}</strong></td>
+                    <td>${filled}</td>
+                    <td style="color:${vacant>0?'green':'red'}; font-weight:bold;">${vacant}</td>
+                    <td>${badge}</td>
+                </tr>`;
+            });
+
+            res.innerHTML = html + "</table>";
+        }
+    </script>
+
+</body>
+</html>
